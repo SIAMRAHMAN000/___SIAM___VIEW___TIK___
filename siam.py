@@ -115,9 +115,9 @@ class SIAM:
     
     def send(this, token: str, aweme_id: str) -> None:
         try:
-            payload = f"--tekky\r\nContent-Disposition: form-data; name=\"{token}\"\r\n\r\n{aweme_id}\r\n--tekky--\r\n"
+            payload = f"--siam\r\nContent-Disposition: form-data; name=\"{token}\"\r\n\r\n{aweme_id}\r\n--siam--\r\n"
             response = this.decode(this.client.post("https://zefoy.com/c2VuZC9mb2xeb3dlcnNfdGlrdG9V", 
-                data = payload, headers = Client.headers({"content-type": "multipart/form-data; boundary=tekky",})).text.encode())
+                data = payload, headers = Client.headers({"content-type": "multipart/form-data; boundary=siam",})).text.encode())
             
             if 'views sent' in response: 
                 print(fmt(f'{red}[{nc}{bgreen} VIEWS SEND {nc}{red}]{nc} {bcyan}BY -{nc} {bpurple}(SIAM){nc} {bred}ID{nc} {yellow}:{nc} {red}[{nc}{green}{aweme_id}{nc}{red}]{nc}'))
@@ -131,9 +131,9 @@ class SIAM:
     def search(this, link: str) -> None:
         try:
 
-            payload = f"--tekky\r\nContent-Disposition: form-data; name=\"{this.key}\"\r\n\r\n{link}\r\n--tekky--\r\n"
+            payload = f"--siam\r\nContent-Disposition: form-data; name=\"{this.key}\"\r\n\r\n{link}\r\n--siam--\r\n"
             response = this.decode(this.client.post("https://zefoy.com/c2VuZC9mb2xeb3dlcnNfdGlrdG9V", 
-                data = payload, headers = Client.headers({"content-type": "multipart/form-data; boundary=tekky",})).text.encode())
+                data = payload, headers = Client.headers({"content-type": "multipart/form-data; boundary=siam",})).text.encode())
             
             if 'comviews' in response:
                 token, aweme_id = findall(r'name="(.*)" value="(.*)" hidden', response)[0]
