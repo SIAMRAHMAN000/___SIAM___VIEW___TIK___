@@ -10,27 +10,43 @@ from colorama       import Fore, init; init()
 from datetime       import datetime
 from json           import load
 
-from subprocess import (
-    run
-)
+import random
 
-logo = """
+skillsiam = ["\033[0;32m", "\033[0;31m", "\033[1;31m", "\033[1;32m", "\033[0;33m", "\033[1;33m", "\033[0;34m", "\033[1;34m"]
+
+
+siamclr = random.choice(skillsiam)
+
+# Color snippets
+black="\033[0;30m"
+red="\033[0;31m"
+bred="\033[1;31m"
+green="\033[0;32m"
+bgreen="\033[1;32m"
+yellow="\033[0;33m"
+byellow="\033[1;33m"
+blue="\033[0;34m"
+bblue="\033[1;34m"
+purple="\033[0;35m"
+bpurple="\033[1;35m"
+cyan="\033[0;36m"
+bcyan="\033[1;36m"
+white="\033[0;37m"
+nc="\033[00m"
+
+banner = f'''{siamclr}
   ██████    ██     █████      ███    ███
  ██         ██    ██   ██     ████  ████
   █████     ██    ███████     ██ ████ ██
       ██    ██    ██   ██     ██  ██  ██
  ██████     ██    ██   ██     ██      ██
-"""
-
-def lolcat(text):
-  run(["lolcat"], input=text, text=True)
-
-
-print(logo)
-
+{nc}
+                        {siamclr}[TOOL : VIEW BOT]{nc}
+'''
+print(banner)
 
 def fmt(string) -> str:
-    return f"{Fore.CYAN}{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} {Fore.RED}INFO {Fore.GREEN}__main__ -> {Fore.RESET}{string}"
+    return f"{Fore.CYAN}{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} {Fore.BLUE}INFO {Fore.MAGENTA}__main__ -> {Fore.RESET}{string}"
 
 class Client:
     def session() -> Session:
@@ -65,13 +81,13 @@ class Captcha:
             captcha_token  = findall(r'<input type="hidden" name="(.*)">', html)[0]
             captcha_url    = findall(r'img src="([^"]*)"', html)[0]
             
-            print(fmt(f'captcha_token: {captcha_token}'))
-            print(fmt(f'captcha_url: {captcha_url}'))
+            print(fmt(f'{green}captcha_token{nc}{yellow} :{nc} {red}{captcha_token}{nc}'))
+            print(fmt(f'{green}captcha_url{nc}{yellow}:{nc} {red}{captcha_url}{nc}'))
             
             captcha_image  = get('https://zefoy.com' + captcha_url, headers = Client.headers(), cookies=this.client.cookies.get_dict()).content;
             image          = Image.open(BytesIO(captcha_image));image.show()
             
-            captcha_answer = input('solve captcha: ')
+            captcha_answer = input(f'{cyan}solve captcha{green}: {nc}')
             
             response = this.client.post('https://zefoy.com', headers = Client.headers({"content-type": "application/x-www-form-urlencoded"}), data = {
                     "captcha_secure": captcha_answer,
@@ -80,12 +96,12 @@ class Captcha:
             
             key_1 = findall('(?<=")[a-z0-9]{16}', response.text)[0]
             
-            print(fmt(f'(key_1) : [{key_1}]'))
+            print(fmt(f'{green}[{nc}{red}key_1{nc}{green}]{nc}{yellow} :{nc} {green}[{nc}{red}{key_1}{nc}{green}]{nc}'))
             
             return key_1
             
         except Exception as e:
-            print(fmt(f'FAILD TO SOLVE CAPTCHA (YOU HAVE BEEN BLOCKED) [{e}]'))
+            print(fmt(f'{red}FAILD TO SOLVE CAPTCHA (YOU HAVE BEEN BLOCKED) [{e}]{nc}'))
             return
 
 class SIAM:
@@ -99,29 +115,29 @@ class SIAM:
     
     def send(this, token: str, aweme_id: str) -> None:
         try:
-            payload = f"--SIAM\r\nContent-Disposition: form-data; name=\"{token}\"\r\n\r\n{aweme_id}\r\n--SIAM--\r\n"
+            payload = f"--tekky\r\nContent-Disposition: form-data; name=\"{token}\"\r\n\r\n{aweme_id}\r\n--tekky--\r\n"
             response = this.decode(this.client.post("https://zefoy.com/c2VuZC9mb2xeb3dlcnNfdGlrdG9V", 
-                data = payload, headers = Client.headers({"content-type": "multipart/form-data; boundary=SIAM",})).text.encode())
+                data = payload, headers = Client.headers({"content-type": "multipart/form-data; boundary=tekky",})).text.encode())
             
             if 'views sent' in response: 
-                print(fmt(f'[ VIEWS SEND ] BY  - (SIAM) ID : [{aweme_id}]'))
+                print(fmt(f'{red}[{nc}{bgreen} VIEWS SEND {nc}{red}]{nc} {bcyan}BY -{nc} {bpurple}(SIAM){nc} {bred}ID{nc} {yellow}:{nc} {red}[{nc}{green}{aweme_id}{nc}{red}]{nc}'))
                 
             else:
-                print(fmt(f'[FAILD] TO SEND VIEWS ID : [{aweme_id}]'))
+                print(fmt(f'{red}[FAILD] TO SEND VIEWS{nc} {bred}ID{nc} {yellow}:{nc} {red}[{nc}{green}{aweme_id}{nc}{red}]'))
 
         except Exception as e:
-            print(fmt(f'[FAILD] TO SEND VIEWS [{e}]'))
+            print(fmt(f'{red}[FAILD] TO SEND VIEWS{nc} {green}[{e}]{nc}'))
     
     def search(this, link: str) -> None:
         try:
 
-            payload = f"--SIAM\r\nContent-Disposition: form-data; name=\"{this.key}\"\r\n\r\n{link}\r\n--SIAM--\r\n"
+            payload = f"--tekky\r\nContent-Disposition: form-data; name=\"{this.key}\"\r\n\r\n{link}\r\n--tekky--\r\n"
             response = this.decode(this.client.post("https://zefoy.com/c2VuZC9mb2xeb3dlcnNfdGlrdG9V", 
-                data = payload, headers = Client.headers({"content-type": "multipart/form-data; boundary=SIAM",})).text.encode())
+                data = payload, headers = Client.headers({"content-type": "multipart/form-data; boundary=tekky",})).text.encode())
             
             if 'comviews' in response:
                 token, aweme_id = findall(r'name="(.*)" value="(.*)" hidden', response)[0]
-                print(fmt(f'sending to: [{aweme_id}] | key_2: [{token}]'))
+                print(fmt(f'{bcyan}SENDING TO{nc}{yellow}:{nc} {red}[{nc}{aweme_id}{red}]{nc} | {green}key_2{nc}{yellow}:{nc} {red}[{nc}{green}{token}{nc}{red}]{nc}'))
     
                 sleep(3); this.send(token, aweme_id)
                 
@@ -131,18 +147,18 @@ class SIAM:
                 if int(timer) == 0:
                     return
 
-                print(fmt(f'time to sleep: {timer}   '),  end="\r")
+                print(fmt(f'{red}TIME TO SLEEP{nc}{yellow}:{nc}{green} {timer}{nc}   '),  end="\r")
 
                 start = time()
                 while time() < start + int(timer):
 
-                    print(fmt(f'time to sleep: {round((start + int(timer)) - time())}   '),  end="\r")
+                    print(fmt(f'{red}TIME TO SLEEP{nc}{yellow}:{nc} {green}{round((start + int(timer)) - time())}   {nc}'),  end="\r")
                     sleep(1)
                     
-                print(fmt(f'sending views...                '),  end="\r")
+                print(fmt(f'{green}SENDING VIEWS...                {nc}'),  end="\r")
 
         except Exception as e:
-            print(fmt(f'Failed to search link [{e}]'))
+            print(fmt(f'{red}Failed to search link {red}[{nc}{green}{e}{nc}{red}]{nc}'))
             print(fmt(response))
             return
     
@@ -154,4 +170,3 @@ class SIAM:
 if __name__ == '__main__':
     client = Client.session()
     SIAM  = SIAM(client).mainloop()
-
