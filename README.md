@@ -1,7 +1,5 @@
 
 
-&emsp;
-
 <p align="center"> 
 <img src="https://raw.githubusercontent.com/SIAMRAHMAN000/___SIAM___VIEW___TIK___/main/img/2.PNG"></img>
 </p>
