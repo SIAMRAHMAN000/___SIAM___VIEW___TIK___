@@ -1,6 +1,6 @@
 ### USAGE 
-
- ``` git clone https://github.com/SIAMRAHMAN000/___SIAM___VIEW___TIK___
+```
+git clone https://github.com/SIAMRAHMAN000/___SIAM___VIEW___TIK___
  ```
  ```
  cd ___SIAM___VIEW___TIK___
