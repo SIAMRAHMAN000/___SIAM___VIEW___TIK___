@@ -9,14 +9,17 @@ from time           import sleep, time
 from colorama       import Fore, init; init()
 from datetime       import datetime
 from json           import load
-
+#~~~~~~~~~~~~~~~LINK ZONE ~~~~~~~~~~~~~~~~~#
+linksiam = str(input("ENTER LINK : "))
+f = open("config.json", "w")
+f.write(f'{linksiam}')
+f.close()
+f = open("config.json", "r")
+time.sleep(2)
+############ COLORZONE RANDOM ##########
 import random
-
 skillsiam = ["\033[0;32m", "\033[0;31m", "\033[1;31m", "\033[1;32m", "\033[0;33m", "\033[1;33m", "\033[0;34m", "\033[1;34m"]
-
-
 siamclr = random.choice(skillsiam)
-
 # Color snippets
 black="\033[0;30m"
 red="\033[0;31m"
@@ -33,7 +36,6 @@ cyan="\033[0;36m"
 bcyan="\033[1;36m"
 white="\033[0;37m"
 nc="\033[00m"
-
 banner = f'''{siamclr}
   ██████    ██     █████      ███    ███
  ██         ██    ██   ██     ████  ████
