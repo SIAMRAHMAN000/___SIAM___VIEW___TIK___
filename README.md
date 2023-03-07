@@ -17,7 +17,7 @@ git clone https://github.com/SIAMRAHMAN000/___SIAM___VIEW___TIK___
 <img src="https://raw.githubusercontent.com/SIAMRAHMAN000/___SIAM___VIEW___TIK___/main/img/1.PNG"></img>
 </p>
 ```
-         MY TIKTOK ID => S14MBRO
+PROOF ID => S14MBRO
 ```
 
 How to run:
